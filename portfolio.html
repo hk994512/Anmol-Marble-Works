@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | ANMOL Marble & Tile Works</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { navy: "#0B192C", gold: "#D4AF37", pearl: "#F8F9FA" },
+            fontFamily: { sans: ["Montserrat", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-pearl text-gray-800 font-sans antialiased flex flex-col min-h-screen"
+  >
+    <nav
+      class="fixed w-full z-50 bg-navy text-white shadow-lg transition-all duration-300"
+      id="navbar"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <a href="index.html" class="flex items-center gap-4">
+            <img
+              src="assets/logo.png"
+              alt="ANMOL Logo"
+              class="w-10 h-10 rounded-full border-2 border-gold object-cover flex-shrink-0"
+            />
+            <div>
+              <h1 class="text-xl font-bold tracking-widest text-gold">ANMOL</h1>
+              <p class="text-xs text-gray-300">Marble & Tile Works</p>
+            </div>
+          </a>
+          <div
+            class="hidden md:flex space-x-6 text-sm font-semibold items-center"
+          >
+            <a href="index.html" class="hover:text-gold transition">Home</a>
+            <a href="about.html" class="hover:text-gold transition">About</a>
+            <a href="services.html" class="hover:text-gold transition"
+              >Services</a
+            >
+            <a href="portfolio.html" class="text-gold transition">Portfolio</a>
+            <a href="visualizer.html" class="hover:text-gold transition"
+              >Visualizer</a
+            >
+            <a
+              href="contact.html"
+              class="bg-gold text-navy px-5 py-2 rounded-full hover:bg-yellow-500 transition shadow-md"
+              >Contact Us</a
+            >
+          </div>
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-btn"
+              class="text-white hover:text-gold focus:outline-none"
+            >
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-navy border-t border-gray-700"
+      >
+        <a
+          href="index.html"
+          class="block px-4 py-3 text-sm hover:bg-gray-800 hover:text-gold"
+          >Home</a
+        >
+        <a
+          href="about.html"
+          class="block px-4 py-3 text-sm hover:bg-gray-800 hover:text-gold"
+          >About</a
+        >
+        <a
+          href="services.html"
+          class="block px-4 py-3 text-sm hover:bg-gray-800 hover:text-gold"
+          >Services</a
+        >
+        <a
+          href="portfolio.html"
+          class="block px-4 py-3 text-sm text-gold font-bold"
+          >Portfolio</a
+        >
+        <a
+          href="visualizer.html"
+          class="block px-4 py-3 text-sm hover:bg-gray-800 hover:text-gold"
+          >3D Visualizer</a
+        >
+        <a
+          href="contact.html"
+          class="block px-4 py-3 text-sm hover:bg-gray-800 hover:text-gold"
+          >Contact Us</a
+        >
+      </div>
+    </nav>
+
+    <header class="pt-32 pb-16 bg-navy text-center text-white">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Our <span class="text-gold">Portfolio</span>
+      </h1>
+      <p class="text-gray-300 max-w-2xl mx-auto px-4">
+        A showcase of our finest marble, tile, and construction finishing
+        projects.
+      </p>
+    </header>
+
+    <section class="py-16 bg-pearl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+          <button
+            class="filter-btn active bg-navy text-white px-5 py-2 rounded-full text-sm font-semibold"
+            data-filter="all"
+          >
+            All Projects
+          </button>
+          <button
+            class="filter-btn bg-white text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold hover:text-navy transition"
+            data-filter="marble"
+          >
+            Marble
+          </button>
+          <button
+            class="filter-btn bg-white text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold hover:text-navy transition"
+            data-filter="tiles"
+          >
+            Tiles
+          </button>
+          <button
+            class="filter-btn bg-white text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold hover:text-navy transition"
+            data-filter="kitchen"
+          >
+            Kitchen
+          </button>
+          <button
+            class="filter-btn bg-white text-navy px-5 py-2 rounded-full text-sm font-semibold hover:bg-gold hover:text-navy transition"
+            data-filter="bathroom"
+          >
+            Bathroom
+          </button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          id="gallery"
+        >
+          <div
+            class="portfolio-item marble rounded-xl overflow-hidden shadow-md group relative"
+            data-category="marble"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Marble Flooring"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Luxury Marble Flooring
+              </h3>
+              <p class="text-white text-sm">DHA, Islamabad</p>
+            </div>
+          </div>
+          <div
+            class="portfolio-item bathroom rounded-xl overflow-hidden shadow-md group relative"
+            data-category="bathroom"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Modern Bathroom"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Modern Bathroom Tiles
+              </h3>
+              <p class="text-white text-sm">Bahria Town</p>
+            </div>
+          </div>
+          <div
+            class="portfolio-item kitchen rounded-xl overflow-hidden shadow-md group relative"
+            data-category="kitchen"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Kitchen"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Kitchen Marble Countertop
+              </h3>
+              <p class="text-white text-sm">F-11, Islamabad</p>
+            </div>
+          </div>
+          <div
+            class="portfolio-item tiles rounded-xl overflow-hidden shadow-md group relative"
+            data-category="tiles"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Floor Tiles"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Living Room Floor Tiles
+              </h3>
+              <p class="text-white text-sm">Gulberg Greens</p>
+            </div>
+          </div>
+          <div
+            class="portfolio-item bathroom rounded-xl overflow-hidden shadow-md group relative"
+            data-category="bathroom"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Bathroom Vanity"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Luxury Bathroom Vanity
+              </h3>
+              <p class="text-white text-sm">Rawalpindi Cantt</p>
+            </div>
+          </div>
+          <div
+            class="portfolio-item marble rounded-xl overflow-hidden shadow-md group relative"
+            data-category="marble"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              class="w-full h-72 object-cover group-hover:scale-110 transition duration-500"
+              alt="Marble Stairs"
+            />
+            <div
+              class="absolute inset-0 bg-navy/80 opacity-0 group-hover:opacity-100 transition flex flex-col items-center justify-center p-4 text-center"
+            >
+              <h3 class="text-gold font-bold text-xl mb-1">
+                Marble Stair Riser
+              </h3>
+              <p class="text-white text-sm">E-11, Islamabad</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-16 text-center">
+          <p class="text-gray-600 mb-4">
+            Aapka project bhi yahan ho sakta hai!
+          </p>
+          <a
+            href="contact.html"
+            class="inline-block bg-gold text-navy px-8 py-3 rounded-md font-bold hover:bg-yellow-500 transition shadow-lg"
+            >Start Your Project</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-navy text-gray-400 py-12 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+        <p>&copy; 2024 ANMOL Marble & Tile Works. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <a
+      href="https://wa.me/923403443297"
+      target="_blank"
+      class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:bg-green-600 transition z-50 animate-bounce"
+      ><i class="fab fa-whatsapp"></i
+    ></a>
+
+    <script src="script.js"></script>
+    <script>
+      // Portfolio Filter
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter-btn").forEach((b) => {
+            b.classList.remove("active", "bg-navy", "text-white");
+            b.classList.add("bg-white", "text-navy");
+          });
+          btn.classList.add("active", "bg-navy", "text-white");
+          btn.classList.remove("bg-white", "text-navy");
+
+          const filter = btn.dataset.filter;
+          document.querySelectorAll(".portfolio-item").forEach((item) => {
+            if (filter === "all" || item.dataset.category === filter) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

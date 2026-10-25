@@ -1,0 +1,32 @@
+/* Custom Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Urdu Font Specific Adjustments */
+.font-urdu {
+  line-height: 2.5rem !important; /* Increases space between lines for Urdu readability */
+}
+
+/* Custom Animation for Hero Section */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Navbar Scroll Effect */
+#navbar.scrolled {
+  background-color: rgba(11, 25, 44, 0.95); /* Slightly transparent navy */
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Room Visualizer | ANMOL Marble & Tile Works</title>
+    <meta
+      name="description"
+      content="Apne room ka design live preview karein. Marble, tiles, aur granite select karein aur turant estimate lein."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { navy: "#0B192C", gold: "#D4AF37", pearl: "#F8F9FA" },
+            fontFamily: {
+              sans: ["Montserrat", "sans-serif"],
+              urdu: ["Noto Nastaliq Urdu", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .room-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      .room-base {
+        width: 100%;
+        display: block;
+      }
+      .overlay-texture {
+        position: absolute;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.85;
+        mix-blend-mode: multiply;
+        transition:
+          background-image 0.5s ease-in-out,
+          opacity 0.3s;
+      }
+      .floor-overlay {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 45%;
+        clip-path: polygon(0 25%, 100% 0, 100% 100%, 0 100%);
+      }
+      .wall-overlay {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 55%;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 45%);
+      }
+      .counter-overlay {
+        bottom: 20%;
+        left: 10%;
+        width: 80%;
+        height: 25%;
+        clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 100%);
+      }
+      .stairs-overlay {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        clip-path: polygon(0 50%, 100% 20%, 100% 100%, 0 100%);
+      }
+
+      .material-thumb {
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .material-thumb:hover,
+      .material-thumb.active {
+        border-color: #d4af37;
+        transform: scale(1.03);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+      }
+
+      .room-tab {
+        transition: all 0.3s;
+        white-space: nowrap;
+      }
+      .room-tab.active {
+        background-color: #0b192c;
+        color: #d4af37;
+      }
+
+      .loading-spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #d4af37;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .room-view {
+        display: none;
+      }
+      .room-view.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Mobile me tabs scrollable */
+      .tabs-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 5px;
+      }
+      .tabs-container::-webkit-scrollbar {
+        height: 4px;
+      }
+      .tabs-container::-webkit-scrollbar-thumb {
+        background: #d4af37;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-pearl text-gray-800 font-sans antialiased flex flex-col min-h-screen"
+  >
+    <!-- ============ NAVIGATION ============ -->
+    <nav
+      class="fixed w-full z-50 bg-navy text-white shadow-lg transition-all duration-300"
+      id="navbar"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo (Marble Pattern + A) -->
+          <a href="index.html" class="flex items-center gap-3 sm:gap-4">
+            <img
+              src="assets/logo.png"
+              alt="ANMOL Logo"
+              class="w-10 h-10 rounded-full border-2 border-gold object-cover flex-shrink-0"
+            />
+            <div>
+              <h1
+                class="text-lg sm:text-xl font-bold tracking-widest text-gold leading-tight"
+              >
+                ANMOL
+              </h1>
+              <p class="text-[10px] sm:text-xs text-gray-300">
+                Marble & Tile Works
+              </p>
+            </div>
+          </a>
+
+          <!-- Desktop Menu -->
+          <div
+            class="hidden md:flex space-x-4 lg:space-x-6 text-sm font-semibold items-center"
+          >
+            <a href="index.html" class="hover:text-gold transition">Home</a>
+            <a href="about.html" class="hover:text-gold transition">About</a>
+            <a href="services.html" class="hover:text-gold transition"
+              >Services</a
+            >
+            <a href="portfolio.html" class="hover:text-gold transition"
+              >Portfolio</a
+            >
+            <a href="visualizer.html" class="text-gold transition"
+              >Visualizer</a
+            >
+            <a
+              href="contact.html"
+              class="bg-gold text-navy px-4 lg:px-5 py-2 rounded-full hover:bg-yellow-500 transition shadow-md whitespace-nowrap"
+              >Contact Us</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-btn"
+              class="text-white hover:text-gold focus:outline-none p-2"
+            >
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-navy border-t border-gray-700"
+      >
+        <a
+          href="index.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Home</a
+        >
+        <a
+          href="about.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >About</a
+        >
+        <a
+          href="services.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Services</a
+        >
+        <a
+          href="portfolio.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Portfolio</a
+        >
+        <a
+          href="visualizer.html"
+          class="block px-6 py-3 text-sm text-gold font-bold border-l-4 border-gold"
+          >3D Visualizer</a
+        >
+        <a
+          href="contact.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Contact Us</a
+        >
+      </div>
+    </nav>
+
+    <!-- ============ HEADER ============ -->
+    <header class="pt-32 pb-12 bg-navy text-center text-white mt-10">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+        3D Room <span class="text-gold">Visualizer</span>
+      </h1>
+      <p class="text-gray-300 max-w-2xl mx-auto px-4 text-sm sm:text-base">
+        Apne room ka design live preview karein. Room select karein, material
+        choose karein aur farq dekhein!
+      </p>
+      <div class="w-24 h-1 bg-gold mx-auto mt-6"></div>
+    </header>
+
+    <!-- ============ ROOM TABS (Sticky & Scrollable on Mobile) ============ -->
+    <section
+      class="py-4 sm:py-6 bg-white border-b border-gray-200 sticky top-20 z-40 shadow-sm"
+    >
+      <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div
+          class="tabs-container flex gap-2 sm:gap-3 justify-start md:justify-center"
+        >
+          <button
+            class="room-tab active bg-navy text-gold px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm shadow-md"
+            onclick="switchRoom('living', this)"
+          >
+            <i class="fas fa-couch mr-1 sm:mr-2"></i> Living
+          </button>
+          <button
+            class="room-tab bg-gray-100 text-navy px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:bg-gray-200"
+            onclick="switchRoom('bathroom', this)"
+          >
+            <i class="fas fa-bath mr-1 sm:mr-2"></i> Bathroom
+          </button>
+          <button
+            class="room-tab bg-gray-100 text-navy px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:bg-gray-200"
+            onclick="switchRoom('kitchen', this)"
+          >
+            <i class="fas fa-utensils mr-1 sm:mr-2"></i> Kitchen
+          </button>
+          <button
+            class="room-tab bg-gray-100 text-navy px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm hover:bg-gray-200"
+            onclick="switchRoom('stairs', this)"
+          >
+            <i class="fas fa-stairs mr-1 sm:mr-2"></i> Stairs
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VISUALIZER AREA ============ -->
+    <section class="py-10 sm:py-12 bg-pearl flex-grow">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- LIVING ROOM -->
+        <div id="view-living" class="room-view active">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="lg:col-span-2">
+              <div class="room-container">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  alt="Living Room"
+                  class="room-base"
+                />
+                <div
+                  id="living-floor"
+                  class="overlay-texture floor-overlay"
+                  style="
+                    background-image: url(&quot;https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&quot;);
+                  "
+                ></div>
+                <div
+                  id="living-loader"
+                  class="absolute inset-0 bg-navy/50 hidden items-center justify-center z-20"
+                >
+                  <div class="loading-spinner"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-xs sm:text-sm text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i> Note: Yeh AI-based
+                preview hai. Actual finishing site visit ke baad confirm hoti
+                hai.
+              </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-5 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-bold text-navy mb-2">
+                Living Room Flooring
+              </h3>
+              <p class="text-xs text-gray-500 mb-4">
+                Marble ya Tiles select karein
+              </p>
+              <div class="space-y-3">
+                <div
+                  class="material-thumb active p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'living-floor',
+                      'https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'living-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Italian Marble"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Italian White Marble
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Premium Imported
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'living-floor',
+                      'https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'living-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Black Galaxy"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Black Galaxy Granite
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Luxury Dark
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'living-floor',
+                      'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'living-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Wooden"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Wooden Porcelain
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Modern Warm
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'living-floor',
+                      'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'living-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Beige"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Beige Travertine
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Classic Look
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 pt-4 border-t">
+                <a
+                  href="https://wa.me/923403443297?text=Hello%20ANMOL,%20mujhe%20Living%20Room%20flooring%20ka%20estimate%20chahiye."
+                  target="_blank"
+                  class="block w-full text-center bg-green-500 text-white font-bold py-2.5 sm:py-3 rounded-lg hover:bg-green-600 transition text-xs sm:text-sm"
+                  ><i class="fab fa-whatsapp mr-2"></i> Get Quote</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BATHROOM -->
+        <div id="view-bathroom" class="room-view">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="lg:col-span-2">
+              <div class="room-container">
+                <img
+                  src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  alt="Bathroom"
+                  class="room-base"
+                />
+                <div
+                  id="bathroom-wall"
+                  class="overlay-texture wall-overlay"
+                  style="
+                    background-image: url(&quot;https://images.unsplash.com/photo-1604709177225-055f99402ea3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&quot;);
+                    opacity: 0.6;
+                  "
+                ></div>
+                <div
+                  id="bathroom-loader"
+                  class="absolute inset-0 bg-navy/50 hidden items-center justify-center z-20"
+                >
+                  <div class="loading-spinner"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-xs sm:text-sm text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i> Bathroom wall tiles
+                preview
+              </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-5 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-bold text-navy mb-2">
+                Bathroom Wall Tiles
+              </h3>
+              <p class="text-xs text-gray-500 mb-4">Wall tiles select karein</p>
+              <div class="space-y-3">
+                <div
+                  class="material-thumb active p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'bathroom-wall',
+                      'https://images.unsplash.com/photo-1604709177225-055f99402ea3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'bathroom-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1604709177225-055f99402ea3?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="White Tiles"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      White Ceramic
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Classic Clean
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'bathroom-wall',
+                      'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'bathroom-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Grey Tiles"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Grey Matte
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Modern Industrial
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'bathroom-wall',
+                      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'bathroom-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1507089947368-19c1da9775ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Marble"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Marble Effect
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Luxury Look
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'bathroom-wall',
+                      'https://images.unsplash.com/photo-1615529182904-14819c35db37?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'bathroom-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1615529182904-14819c35db37?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Blue"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Blue Subway
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Trendy Design
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 pt-4 border-t">
+                <a
+                  href="https://wa.me/923403443297?text=Hello%20ANMOL,%20mujhe%20Bathroom%20tiles%20ka%20estimate%20chahiye."
+                  target="_blank"
+                  class="block w-full text-center bg-green-500 text-white font-bold py-2.5 sm:py-3 rounded-lg hover:bg-green-600 transition text-xs sm:text-sm"
+                  ><i class="fab fa-whatsapp mr-2"></i> Get Quote</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KITCHEN -->
+        <div id="view-kitchen" class="room-view">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="lg:col-span-2">
+              <div class="room-container">
+                <img
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  alt="Kitchen"
+                  class="room-base"
+                />
+                <div
+                  id="kitchen-counter"
+                  class="overlay-texture counter-overlay"
+                  style="
+                    background-image: url(&quot;https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&quot;);
+                  "
+                ></div>
+                <div
+                  id="kitchen-loader"
+                  class="absolute inset-0 bg-navy/50 hidden items-center justify-center z-20"
+                >
+                  <div class="loading-spinner"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-xs sm:text-sm text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i> Kitchen countertop
+                marble preview
+              </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-5 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-bold text-navy mb-2">
+                Kitchen Countertop
+              </h3>
+              <p class="text-xs text-gray-500 mb-4">
+                Marble ya Granite select karein
+              </p>
+              <div class="space-y-3">
+                <div
+                  class="material-thumb active p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'kitchen-counter',
+                      'https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'kitchen-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="White Marble"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      White Marble
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Elegant Kitchen
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'kitchen-counter',
+                      'https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'kitchen-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Black Granite"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Black Granite
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Durable & Bold
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'kitchen-counter',
+                      'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'kitchen-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Beige"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Beige Quartz
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Warm Neutral
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 pt-4 border-t">
+                <a
+                  href="https://wa.me/923403443297?text=Hello%20ANMOL,%20mujhe%20Kitchen%20countertop%20ka%20estimate%20chahiye."
+                  target="_blank"
+                  class="block w-full text-center bg-green-500 text-white font-bold py-2.5 sm:py-3 rounded-lg hover:bg-green-600 transition text-xs sm:text-sm"
+                  ><i class="fab fa-whatsapp mr-2"></i> Get Quote</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STAIRS -->
+        <div id="view-stairs" class="room-view">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div class="lg:col-span-2">
+              <div class="room-container">
+                <img
+                  src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                  alt="Stairs"
+                  class="room-base"
+                />
+                <div
+                  id="stairs-texture"
+                  class="overlay-texture stairs-overlay"
+                  style="
+                    background-image: url(&quot;https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&quot;);
+                  "
+                ></div>
+                <div
+                  id="stairs-loader"
+                  class="absolute inset-0 bg-navy/50 hidden items-center justify-center z-20"
+                >
+                  <div class="loading-spinner"></div>
+                </div>
+              </div>
+              <p class="mt-4 text-center text-xs sm:text-sm text-gray-500">
+                <i class="fas fa-info-circle mr-1"></i> Stairs marble riser &
+                treads preview
+              </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-5 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-bold text-navy mb-2">
+                Stairs Marble
+              </h3>
+              <p class="text-xs text-gray-500 mb-4">
+                Stairs ke liye marble select karein
+              </p>
+              <div class="space-y-3">
+                <div
+                  class="material-thumb active p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'stairs-texture',
+                      'https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'stairs-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1615874694520-474822394e73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="White Marble"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Italian White
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Classic Stairs
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'stairs-texture',
+                      'https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'stairs-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1604147495798-57beb5d6af73?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Black"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Black Galaxy
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Modern Bold
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="material-thumb p-2 bg-gray-50 flex items-center gap-3"
+                  onclick="
+                    changeTexture(
+                      'stairs-texture',
+                      'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                      'stairs-loader',
+                      this,
+                    )
+                  "
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+                    class="w-12 h-12 sm:w-14 sm:h-14 rounded object-cover"
+                    alt="Beige"
+                  />
+                  <div>
+                    <h4 class="font-bold text-navy text-xs sm:text-sm">
+                      Beige Travertine
+                    </h4>
+                    <p class="text-[10px] sm:text-xs text-gray-500">
+                      Warm Classic
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-6 pt-4 border-t">
+                <a
+                  href="https://wa.me/923403443297?text=Hello%20ANMOL,%20mujhe%20Stairs%20marble%20ka%20estimate%20chahiye."
+                  target="_blank"
+                  class="block w-full text-center bg-green-500 text-white font-bold py-2.5 sm:py-3 rounded-lg hover:bg-green-600 transition text-xs sm:text-sm"
+                  ><i class="fab fa-whatsapp mr-2"></i> Get Quote</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="py-10 sm:py-12 bg-gold">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-navy mb-3">
+          Design Pasand Aaya?
+        </h2>
+        <p class="text-navy/80 mb-6 text-sm sm:text-base">
+          Ab apne ghar ka exact estimate lein. Free site visit book karein!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="tel:03403443297"
+            class="bg-navy text-gold px-8 py-3 rounded-md font-bold hover:bg-gray-800 transition shadow-lg text-sm sm:text-base"
+            ><i class="fas fa-phone-alt mr-2"></i> Call: 0340-3443297</a
+          >
+          <a
+            href="https://wa.me/923403443297"
+            target="_blank"
+            class="bg-green-500 text-white px-8 py-3 rounded-md font-bold hover:bg-green-600 transition shadow-lg text-sm sm:text-base"
+            ><i class="fab fa-whatsapp mr-2"></i> WhatsApp</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-navy text-gray-400 py-12 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img
+                src="assets/logo.png"
+                alt="ANMOL Logo"
+                class="w-10 h-10 rounded-full border-2 border-gold object-cover flex-shrink-0"
+              />
+              <h3 class="text-xl font-bold text-gold">ANMOL</h3>
+            </div>
+            <p class="text-sm mb-4 leading-relaxed">
+              Premium marble, tile, and construction services in Islamabad &
+              Rawalpindi.
+            </p>
+            <p
+              class="font-urdu text-sm leading-loose text-right text-gray-300"
+              dir="rtl"
+            >
+              اعلیٰ معیار کی کاریگری ہماری پہچان ہے۔
+            </p>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-4 border-b border-gold/30 pb-2">
+              Quick Links
+            </h4>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="index.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Home</a
+                >
+              </li>
+              <li>
+                <a href="about.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  About Us</a
+                >
+              </li>
+              <li>
+                <a href="services.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Services</a
+                >
+              </li>
+              <li>
+                <a href="portfolio.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Portfolio</a
+                >
+              </li>
+              <li>
+                <a href="visualizer.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  3D Visualizer</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-4 border-b border-gold/30 pb-2">
+              Get In Touch
+            </h4>
+            <ul class="space-y-3 text-sm">
+              <li><i class="fas fa-user text-gold w-5"></i> Kaleem Ahmad</li>
+              <li>
+                <i class="fas fa-phone-alt text-gold w-5"></i>
+                <a href="tel:03403443297" class="hover:text-gold"
+                  >0340-3443297</a
+                >
+              </li>
+              <li>
+                <i class="fab fa-whatsapp text-gold w-5"></i>
+                <a
+                  href="https://wa.me/923403443297"
+                  target="_blank"
+                  class="hover:text-gold"
+                  >WhatsApp Chat</a
+                >
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt text-gold w-5"></i> Islamabad /
+                Rawalpindi
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+          <p>&copy; 2024 ANMOL Marble & Tile Works. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ FLOATING WHATSAPP ============ -->
+    <a
+      href="https://wa.me/923403443297"
+      target="_blank"
+      class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:bg-green-600 transition z-50 animate-bounce"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+    <script>
+      // Switch between rooms
+      function switchRoom(roomName, btn) {
+        document
+          .querySelectorAll(".room-view")
+          .forEach((v) => v.classList.remove("active"));
+        document.getElementById("view-" + roomName).classList.add("active");
+
+        document.querySelectorAll(".room-tab").forEach((t) => {
+          t.classList.remove("active", "bg-navy", "text-gold");
+          t.classList.add("bg-gray-100", "text-navy");
+        });
+        btn.classList.add("active", "bg-navy", "text-gold");
+        btn.classList.remove("bg-gray-100", "text-navy");
+      }
+
+      // Change texture in a specific room
+      function changeTexture(overlayId, imageUrl, loaderId, element) {
+        const overlay = document.getElementById(overlayId);
+        const loader = document.getElementById(loaderId);
+        if (!overlay || !loader) return;
+
+        loader.classList.remove("hidden");
+        loader.classList.add("flex");
+
+        const parentRoom = element.closest(".room-view");
+        parentRoom
+          .querySelectorAll(".material-thumb")
+          .forEach((el) => el.classList.remove("active"));
+        element.classList.add("active");
+
+        setTimeout(() => {
+          overlay.style.backgroundImage = `url('${imageUrl}')`;
+          loader.classList.add("hidden");
+          loader.classList.remove("flex");
+        }, 500);
+      }
+    </script>
+  </body>
+</html>

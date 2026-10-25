@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services | ANMOL Marble & Tile Works</title>
+    <meta
+      name="description"
+      content="ANMOL Marble & Tile Works offers tile work, marble fitting, cladding, kitchen sinks, stair risers, and marble polishing in Islamabad & Rawalpindi."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { navy: "#0B192C", gold: "#D4AF37", pearl: "#F8F9FA" },
+            fontFamily: {
+              sans: ["Montserrat", "sans-serif"],
+              urdu: ["Noto Nastaliq Urdu", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-pearl text-gray-800 font-sans antialiased flex flex-col min-h-screen"
+  >
+    <!-- ============ NAVIGATION ============ -->
+    <nav
+      class="fixed w-full z-50 bg-navy text-white shadow-lg transition-all duration-300"
+      id="navbar"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo (Marble Pattern + A) -->
+          <a href="index.html" class="flex items-center gap-3 sm:gap-4">
+            <img
+              src="assets/logo.png"
+              alt="ANMOL Logo"
+              class="w-10 h-10 rounded-full border-2 border-gold object-cover flex-shrink-0"
+            />
+            <div>
+              <h1
+                class="text-lg sm:text-xl font-bold tracking-widest text-gold leading-tight"
+              >
+                ANMOL
+              </h1>
+              <p class="text-[10px] sm:text-xs text-gray-300">
+                Marble & Tile Works
+              </p>
+            </div>
+          </a>
+
+          <!-- Desktop Menu -->
+          <div
+            class="hidden md:flex space-x-4 lg:space-x-6 text-sm font-semibold items-center"
+          >
+            <a href="index.html" class="hover:text-gold transition">Home</a>
+            <a href="about.html" class="hover:text-gold transition">About</a>
+            <a href="services.html" class="text-gold transition">Services</a>
+            <a href="portfolio.html" class="hover:text-gold transition"
+              >Portfolio</a
+            >
+            <a href="visualizer.html" class="hover:text-gold transition"
+              >Visualizer</a
+            >
+            <a
+              href="contact.html"
+              class="bg-gold text-navy px-4 lg:px-5 py-2 rounded-full hover:bg-yellow-500 transition shadow-md whitespace-nowrap"
+              >Contact Us</a
+            >
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button
+              id="mobile-menu-btn"
+              class="text-white hover:text-gold focus:outline-none p-2"
+            >
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-navy border-t border-gray-700"
+      >
+        <a
+          href="index.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Home</a
+        >
+        <a
+          href="about.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >About</a
+        >
+        <a
+          href="services.html"
+          class="block px-6 py-3 text-sm text-gold font-bold border-l-4 border-gold"
+          >Services</a
+        >
+        <a
+          href="portfolio.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Portfolio</a
+        >
+        <a
+          href="visualizer.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >3D Visualizer</a
+        >
+        <a
+          href="contact.html"
+          class="block px-6 py-3 text-sm hover:bg-gray-800 hover:text-gold transition"
+          >Contact Us</a
+        >
+      </div>
+    </nav>
+
+    <!-- ============ HEADER ============ -->
+    <header class="pt-32 pb-16 bg-navy text-center text-white mt-10">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+        Our <span class="text-gold">Services</span>
+      </h1>
+      <p class="text-gray-300 max-w-2xl mx-auto px-4 text-sm sm:text-base">
+        Comprehensive construction and finishing solutions tailored to your
+        needs.
+      </p>
+    </header>
+
+    <!-- ============ SERVICES GRID ============ -->
+    <section class="py-16 sm:py-20 bg-pearl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
+          <!-- Service 1 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-border-all text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Tile Work
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Precision tile installation for floors, walls, and bathrooms. We
+              work with ceramic, porcelain, and modern geometric tiles to give
+              your space a flawless look.
+            </p>
+          </div>
+
+          <!-- Service 2 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-gem text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Marble Work
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Luxury marble fitting for stairs, floors, and countertops. We
+              source and install high-quality local and imported marble with
+              precision cutting.
+            </p>
+          </div>
+
+          <!-- Service 3 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-tools text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Cladding Work
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Interior and exterior wall cladding. Enhance your building's
+              facade with premium stone, marble, or modern composite panels.
+            </p>
+          </div>
+
+          <!-- Service 4 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-sink text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Kitchen Sinks & Vanity
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Installation of modern sinks, vanities, and complete kitchen
+              setups. We ensure perfect plumbing alignment and water-tight
+              marble sealing.
+            </p>
+          </div>
+
+          <!-- Service 5 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-stairs text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Stair Riser & Railing
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Beautiful and safe staircase designs. We combine marble steps with
+              modern steel or glass railings for a stunning entrance.
+            </p>
+          </div>
+
+          <!-- Service 6 -->
+          <div
+            class="bg-white rounded-xl shadow-lg hover:-translate-y-2 transition duration-300 p-6 sm:p-8 border-t-4 border-gold"
+          >
+            <div
+              class="w-16 h-16 bg-navy/5 rounded-lg flex items-center justify-center mb-6"
+            >
+              <i class="fas fa-magic text-3xl text-navy"></i>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">
+              Marble Polish & Finishing
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              Professional diamond polishing and grinding to restore the shine
+              and smoothness of your existing marble floors and walls.
+            </p>
+          </div>
+        </div>
+
+        <!-- ============ CTA ============ -->
+        <div
+          class="mt-12 sm:mt-16 bg-navy rounded-xl p-6 sm:p-8 md:p-12 text-center"
+        >
+          <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+            Need a Custom Service?
+          </h3>
+          <p class="text-gray-300 mb-6 text-sm sm:text-base">
+            Har project alag hota hai. Humein batayen aapko kya chahiye, hum
+            custom solution denge.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="contact.html"
+              class="bg-gold text-navy px-8 py-3 rounded-md font-bold hover:bg-yellow-500 transition shadow-lg"
+            >
+              Get Custom Quote
+            </a>
+            <a
+              href="https://wa.me/923403443297"
+              target="_blank"
+              class="bg-green-500 text-white px-8 py-3 rounded-md font-bold hover:bg-green-600 transition shadow-lg"
+            >
+              <i class="fab fa-whatsapp mr-2"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="bg-navy text-gray-400 py-12 mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Brand Column -->
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <img
+                src="assets/logo.png"
+                alt="ANMOL Logo"
+                class="w-10 h-10 rounded-full border-2 border-gold object-cover flex-shrink-0"
+              />
+              <h3 class="text-xl font-bold text-gold">ANMOL</h3>
+            </div>
+            <p class="text-sm mb-4 leading-relaxed">
+              Premium marble, tile, and construction services in Islamabad &
+              Rawalpindi.
+            </p>
+            <p
+              class="font-urdu text-sm leading-loose text-right text-gray-300"
+              dir="rtl"
+            >
+              اعلیٰ معیار کی کاریگری ہماری پہچان ہے۔
+            </p>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h4 class="text-white font-bold mb-4 border-b border-gold/30 pb-2">
+              Quick Links
+            </h4>
+            <ul class="space-y-2 text-sm">
+              <li>
+                <a href="index.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Home</a
+                >
+              </li>
+              <li>
+                <a href="about.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  About Us</a
+                >
+              </li>
+              <li>
+                <a href="services.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Services</a
+                >
+              </li>
+              <li>
+                <a href="portfolio.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Portfolio</a
+                >
+              </li>
+              <li>
+                <a href="visualizer.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  3D Visualizer</a
+                >
+              </li>
+              <li>
+                <a href="contact.html" class="hover:text-gold"
+                  ><i class="fas fa-chevron-right text-xs mr-2 text-gold"></i>
+                  Contact Us</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h4 class="text-white font-bold mb-4 border-b border-gold/30 pb-2">
+              Get In Touch
+            </h4>
+            <ul class="space-y-3 text-sm">
+              <li><i class="fas fa-user text-gold w-5"></i> Kaleem Ahmad</li>
+              <li>
+                <i class="fas fa-phone-alt text-gold w-5"></i>
+                <a href="tel:03403443297" class="hover:text-gold"
+                  >0340-3443297</a
+                >
+              </li>
+              <li>
+                <i class="fab fa-whatsapp text-gold w-5"></i>
+                <a
+                  href="https://wa.me/923403443297"
+                  target="_blank"
+                  class="hover:text-gold"
+                  >WhatsApp Chat</a
+                >
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt text-gold w-5"></i> Islamabad /
+                Rawalpindi
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+          <p>&copy; 2024 ANMOL Marble & Tile Works. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ============ FLOATING WHATSAPP ============ -->
+    <a
+      href="https://wa.me/923403443297"
+      target="_blank"
+      class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:bg-green-600 transition z-50 animate-bounce"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="script.js"></script>
+  </body>
+</html>
