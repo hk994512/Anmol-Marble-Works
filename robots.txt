@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anmol-marble-works.vercel.app/sitemap.xml
