@@ -1,18 +1,233 @@
+/* ===================================================
+   ANMOL MARBLE & TILE WORKS - LUXURY DESIGN SYSTEM
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
+:root {
+  --color-navy: #0B192C;
+  --color-navy-dark: #060e18;
+  --color-navy-light: #152744;
+  --color-gold: #D4AF37;
+  --color-gold-light: #F3E5AB;
+  --color-gold-dark: #AA820A;
+  --color-pearl: #F8F9FA;
+  --gold-gradient: linear-gradient(135deg, #ECC876 0%, #D4AF37 50%, #B8860B 100%);
+  --gold-gradient-hover: linear-gradient(135deg, #FFF0C2 0%, #E6C555 50%, #C49416 100%);
+  --navy-gradient: linear-gradient(180deg, #0B192C 0%, #060E18 100%);
+  --surface-glass: rgba(11, 25, 44, 0.75);
+}
+
 /* Custom Smooth Scrolling */
 html {
   scroll-behavior: smooth;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Luxury Heading Font */
+.font-luxury {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.03em;
 }
 
 /* Urdu Font Specific Adjustments */
 .font-urdu {
-  line-height: 2.5rem !important; /* Increases space between lines for Urdu readability */
+  font-family: 'Noto Nastaliq Urdu', serif;
+  line-height: 2.6 !important;
 }
 
-/* Custom Animation for Hero Section */
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0B192C;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37, #8E6D18);
+  border-radius: 5px;
+  border: 2px solid #0B192C;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ecc876;
+}
+
+/* Metallic Gold Gradient Text */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #ECC876 0%, #D4AF37 40%, #B8860B 80%, #ECC876 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 8s linear infinite;
+}
+
+@keyframes shineText {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Gold Metallic Background */
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #F3DE8A 0%, #D4AF37 45%, #B8860B 100%);
+}
+
+.bg-gold-subtle {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.04) 100%);
+}
+
+/* Glassmorphism Styles */
+.glass-nav {
+  background-color: rgba(11, 25, 44, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(11, 25, 44, 0.1);
+}
+
+.glass-card-dark {
+  background: rgba(11, 25, 44, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+}
+
+/* Luxury Interactive Card */
+.luxury-card {
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.luxury-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(11, 25, 44, 0.15), 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.luxury-card:hover::before {
+  opacity: 1;
+}
+
+/* Hero Badge */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 9999px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+/* Shimmer Button */
+.btn-gold {
+  background: linear-gradient(135deg, #ECC876 0%, #D4AF37 50%, #B8860B 100%);
+  color: #0B192C;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #FFF0C2 0%, #E6C555 50%, #C49416 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+}
+
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.75s ease;
+}
+
+.btn-gold:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+
+.btn-outline-gold {
+  border: 1.5px solid #D4AF37;
+  color: #D4AF37;
+  background: rgba(11, 25, 44, 0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+  background: #D4AF37;
+  color: #0B192C;
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Floating WhatsApp Pulse */
+.whatsapp-pulse {
+  position: relative;
+}
+
+.whatsapp-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background: #22c55e;
+  opacity: 0.7;
+  z-index: -1;
+  animation: pulseWave 2s infinite;
+}
+
+@keyframes pulseWave {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -21,12 +236,73 @@ html {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 1s ease-out forwards;
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Navbar Scroll Effect */
-#navbar.scrolled {
-  background-color: rgba(11, 25, 44, 0.95); /* Slightly transparent navy */
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+/* Marble subtle background pattern */
+.marble-pattern-bg {
+  background-color: #0B192C;
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
+    linear-gradient(180deg, rgba(11, 25, 44, 0.95) 0%, rgba(6, 14, 24, 0.98) 100%);
+}
+
+/* Subtle separator with diamond */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px auto;
+}
+
+.gold-divider::before,
+.gold-divider::after {
+  content: '';
+  height: 1px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+}
+
+.gold-divider span {
+  color: #D4AF37;
+  font-size: 10px;
+  transform: rotate(45deg);
+}
+
+/* Navbar active state indicator */
+.nav-link {
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--gold-gradient);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }

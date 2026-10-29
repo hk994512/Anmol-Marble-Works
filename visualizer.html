@@ -3,18 +3,147 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Room Visualizer | ANMOL Marble & Tile Works</title>
-    <meta
-      name="description"
-      content="Apne room ka design live preview karein. Marble, tiles, aur granite select karein aur turant estimate lein."
-    />
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="theme-color" content="#0B192C" />
+    <meta name="msapplication-TileColor" content="#0B192C" />
+
+    <!-- SEO Meta Tags -->
+    <title>3D Room Visualizer | Live Marble & Tile Preview | ANMOL</title>
+    <meta name="description" content="Preview Italian marble, Ziarat White, and designer tiles on your room floor & walls in real-time with our interactive 3D Visualizer. Get instant quotes." />
+    <meta name="keywords" content="3d room visualizer, tile preview online, marble simulator, live room design pakistan, anmol 3d visualizer" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="canonical" href="https://anmol-marble-works.vercel.app/visualizer.html" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_PK" />
+    <meta property="og:site_name" content="ANMOL Marble & Tile Works" />
+    <meta property="og:title" content="3D Room Visualizer | Live Marble & Tile Preview | ANMOL" />
+    <meta property="og:description" content="Preview Italian marble, Ziarat White, and designer tiles on your room floor & walls in real-time with our interactive 3D Visualizer. Get instant quotes." />
+    <meta property="og:url" content="https://anmol-marble-works.vercel.app/visualizer.html" />
+    <meta property="og:image" content="https://anmol-marble-works.vercel.app/assets/logo.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="ANMOL Marble & Tile Works Logo" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="3D Room Visualizer | Live Marble & Tile Preview | ANMOL" />
+    <meta name="twitter:description" content="Preview Italian marble, Ziarat White, and designer tiles on your room floor & walls in real-time with our interactive 3D Visualizer. Get instant quotes." />
+    <meta name="twitter:image" content="https://anmol-marble-works.vercel.app/assets/logo.png" />
+    <meta name="twitter:image:alt" content="ANMOL Marble & Tile Works Logo" />
+
+    <!-- Local SEO Geo Meta Tags -->
+    <meta name="geo.region" content="PK-IS" />
+    <meta name="geo.placename" content="Islamabad" />
+    <meta name="geo.position" content="33.690688;73.005711" />
+    <meta name="ICBM" content="33.690688, 73.005711" />
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeAndConstructionBusiness",
+      "name": "ANMOL Marble & Tile Works",
+      "image": "https://anmol-marble-works.vercel.app/assets/logo.png",
+      "@id": "https://anmol-marble-works.vercel.app/",
+      "url": "https://anmol-marble-works.vercel.app/",
+      "telephone": "+923403443297",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "F-10",
+        "addressLocality": "Islamabad",
+        "addressRegion": "Islamabad Capital Territory",
+        "postalCode": "44000",
+        "addressCountry": "PK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 33.690688,
+        "longitude": 73.005711
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "20:00"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Kaleem Ahmad",
+        "jobTitle": "Master Stonemason & Contractor"
+      },
+      "areaServed": [
+        "Islamabad",
+        "Rawalpindi",
+        "DHA Islamabad",
+        "Bahria Town Rawalpindi",
+        "Gulberg Greens",
+        "Chaklala Cantt"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Marble & Tile Construction Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Marble Flooring & Italian Mirror Polishing"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Porcelain & Ceramic Tile Installation"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Interior & Exterior Wall Cladding"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Kitchen Granite Countertops & Custom Vanities"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Stair Marble Fitting & Bullnosing"
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -22,9 +151,9 @@
       tailwind.config = {
         theme: {
           extend: {
-            colors: { navy: "#0B192C", gold: "#D4AF37", pearl: "#F8F9FA" },
+            colors: { navy: "#0B192C", "navy-dark": "#060E18", "navy-light": "#152744", gold: "#D4AF37", "gold-light": "#F3E5AB", "gold-dark": "#AA820A", pearl: "#F8F9FA" },
             fontFamily: {
-              sans: ["Montserrat", "sans-serif"],
+              sans: ["Montserrat", "sans-serif"], luxury: ["Cinzel", "serif"],
               urdu: ["Noto Nastaliq Urdu", "serif"],
             },
           },
@@ -161,7 +290,7 @@
   >
     <!-- ============ NAVIGATION ============ -->
     <nav
-      class="fixed w-full z-50 bg-navy text-white shadow-lg transition-all duration-300"
+      class="fixed w-full z-50 bg-navy text-white shadow-xl transition-all duration-300 border-b border-gold/15"
       id="navbar"
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,8 +387,8 @@
     </nav>
 
     <!-- ============ HEADER ============ -->
-    <header class="pt-32 pb-12 bg-navy text-center text-white mt-10">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">
+    <header class="pt-36 pb-16 marble-pattern-bg text-center text-white relative">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black mb-3 font-luxury">
         3D Room <span class="text-gold">Visualizer</span>
       </h1>
       <p class="text-gray-300 max-w-2xl mx-auto px-4 text-sm sm:text-base">
@@ -990,7 +1119,7 @@
     <a
       href="https://wa.me/923403443297"
       target="_blank"
-      class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:bg-green-600 transition z-50 animate-bounce"
+      class="fixed bottom-6 right-6 bg-emerald-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:bg-emerald-600 transition z-50 whatsapp-pulse"
     >
       <i class="fab fa-whatsapp"></i>
     </a>
