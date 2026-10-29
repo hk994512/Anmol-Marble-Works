@@ -198,6 +198,8 @@
               gold: "#D4AF37",
               "gold-light": "#F3E5AB",
               "gold-dark": "#AA820A",
+              /* Darker gold for text on light backgrounds (WCAG AA contrast) */
+              "gold-text": "#8A6A06",
               pearl: "#F8F9FA",
             },
             fontFamily: {
@@ -546,14 +548,14 @@
               >
                 <div class="flex items-center justify-between">
                   <div>
-                    <h4
+                    <p
                       class="text-white text-xs font-bold flex items-center gap-2"
                     >
                       <span
                         class="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"
                       ></span>
                       Interactive 3D Visualizer
-                    </h4>
+                    </p>
                     <p class="text-gray-400 text-[11px] mt-0.5">
                       Preview marble &amp; tile shades on your room walls &amp;
                       floor
@@ -599,20 +601,20 @@
           <div class="pt-4 sm:pt-0 sm:px-4">
             <div class="flex items-center justify-center gap-2 mb-1">
               <i class="fas fa-medal text-navy/70 text-lg"></i>
-              <h3
+              <p
                 class="text-3xl sm:text-4xl font-black counter-value"
                 data-target="5"
                 data-suffix="+"
               >
                 5+
-              </h3>
+              </p>
             </div>
             <p
-              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy/90"
+              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy"
             >
               Years of Mastery
             </p>
-            <p class="text-[11px] text-navy/70 hidden sm:block mt-0.5">
+            <p class="text-[11px] text-navy hidden sm:block mt-0.5">
               Dedicated Stone Craftsmen
             </p>
           </div>
@@ -620,20 +622,20 @@
           <div class="pt-4 sm:pt-0 sm:px-4">
             <div class="flex items-center justify-center gap-2 mb-1">
               <i class="fas fa-home text-navy/70 text-lg"></i>
-              <h3
+              <p
                 class="text-3xl sm:text-4xl font-black counter-value"
                 data-target="200"
                 data-suffix="+"
               >
                 200+
-              </h3>
+              </p>
             </div>
             <p
-              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy/90"
+              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy"
             >
               Projects Completed
             </p>
-            <p class="text-[11px] text-navy/70 hidden sm:block mt-0.5">
+            <p class="text-[11px] text-navy hidden sm:block mt-0.5">
               Villas, Flats &amp; Commercial
             </p>
           </div>
@@ -641,20 +643,20 @@
           <div class="pt-4 sm:pt-0 sm:px-4">
             <div class="flex items-center justify-center gap-2 mb-1">
               <i class="fas fa-smile text-navy/70 text-lg"></i>
-              <h3
+              <p
                 class="text-3xl sm:text-4xl font-black counter-value"
                 data-target="100"
                 data-suffix="%"
               >
                 100%
-              </h3>
+              </p>
             </div>
             <p
-              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy/90"
+              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy"
             >
               Client Satisfaction
             </p>
-            <p class="text-[11px] text-navy/70 hidden sm:block mt-0.5">
+            <p class="text-[11px] text-navy hidden sm:block mt-0.5">
               Quality Finishing Promise
             </p>
           </div>
@@ -662,20 +664,20 @@
           <div class="pt-4 sm:pt-0 sm:px-4">
             <div class="flex items-center justify-center gap-2 mb-1">
               <i class="fas fa-users-cog text-navy/70 text-lg"></i>
-              <h3
+              <p
                 class="text-3xl sm:text-4xl font-black counter-value"
                 data-target="50"
                 data-suffix="+"
               >
                 50+
-              </h3>
+              </p>
             </div>
             <p
-              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy/90"
+              class="text-xs sm:text-sm font-bold uppercase tracking-wider text-navy"
             >
               Skilled Ustaads
             </p>
-            <p class="text-[11px] text-navy/70 hidden sm:block mt-0.5">
+            <p class="text-[11px] text-navy hidden sm:block mt-0.5">
               Experienced Tile &amp; Marble Fitters
             </p>
           </div>
@@ -689,7 +691,8 @@
         <!-- Section Header -->
         <div class="text-center mb-14 sm:mb-16">
           <div class="hero-badge mb-3">
-            <span class="text-gold font-bold text-xs uppercase tracking-widest"
+            <span
+              class="text-gold-text font-bold text-xs uppercase tracking-widest"
               >Precision Services</span
             >
           </div>
@@ -720,7 +723,7 @@
                 <i class="fas fa-border-all"></i>
               </div>
               <span
-                class="text-xs uppercase font-bold tracking-wider text-gold mb-1 block"
+                class="text-xs uppercase font-bold tracking-wider text-gold-text mb-1 block"
                 >Floor &amp; Wall Artistry</span
               >
               <h3 class="text-2xl font-bold text-navy mb-3">
@@ -748,7 +751,7 @@
             </div>
             <a
               href="services.html"
-              class="text-sm font-bold text-navy group-hover:text-gold flex items-center gap-2 transition pt-4 border-t border-gray-100"
+              class="text-sm font-bold text-navy group-hover:text-gold-text flex items-center gap-2 transition pt-4 border-t border-gray-100"
             >
               <span>Explore Tile Services</span>
               <i
@@ -773,7 +776,7 @@
                 <i class="fas fa-gem"></i>
               </div>
               <span
-                class="text-xs uppercase font-bold tracking-wider text-gold mb-1 block"
+                class="text-xs uppercase font-bold tracking-wider text-gold-text mb-1 block"
                 >Luxury Natural Stone</span
               >
               <h3 class="text-2xl font-bold text-navy mb-3">
@@ -801,7 +804,7 @@
             </div>
             <a
               href="services.html"
-              class="text-sm font-bold text-navy group-hover:text-gold flex items-center gap-2 transition pt-4 border-t border-gray-100"
+              class="text-sm font-bold text-navy group-hover:text-gold-text flex items-center gap-2 transition pt-4 border-t border-gray-100"
             >
               <span>Explore Marble Works</span>
               <i
@@ -821,7 +824,7 @@
                 <i class="fas fa-layer-group"></i>
               </div>
               <span
-                class="text-xs uppercase font-bold tracking-wider text-gold mb-1 block"
+                class="text-xs uppercase font-bold tracking-wider text-gold-text mb-1 block"
                 >Facades &amp; Feature Walls</span
               >
               <h3 class="text-2xl font-bold text-navy mb-3">
@@ -849,7 +852,7 @@
             </div>
             <a
               href="services.html"
-              class="text-sm font-bold text-navy group-hover:text-gold flex items-center gap-2 transition pt-4 border-t border-gray-100"
+              class="text-sm font-bold text-navy group-hover:text-gold-text flex items-center gap-2 transition pt-4 border-t border-gray-100"
             >
               <span>Explore Cladding &amp; Sinks</span>
               <i
@@ -877,7 +880,8 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <div class="hero-badge mb-3">
-            <span class="text-gold font-bold text-xs uppercase tracking-widest"
+            <span
+              class="text-gold-text font-bold text-xs uppercase tracking-widest"
               >Why Discerning Clients Choose Us</span
             >
           </div>
@@ -899,9 +903,9 @@
             >
               <i class="fas fa-crosshairs"></i>
             </div>
-            <h4 class="text-lg font-bold text-navy mb-2">
+            <h3 class="text-lg font-bold text-navy mb-2">
               Laser-Calibrated Alignment
-            </h4>
+            </h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
               We employ professional laser levels and tile leveling clips to
               ensure absolute flatness without tripping edges.
@@ -917,9 +921,9 @@
             >
               <i class="fas fa-magic"></i>
             </div>
-            <h4 class="text-lg font-bold text-navy mb-2">
+            <h3 class="text-lg font-bold text-navy mb-2">
               Dust-Free Mirror Polish
-            </h4>
+            </h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
               Multi-stage Italian chemical polishing and diamond rotary pads
               bring out the stone's genuine deep crystal gloss.
@@ -935,9 +939,9 @@
             >
               <i class="fas fa-hand-holding-usd"></i>
             </div>
-            <h4 class="text-lg font-bold text-navy mb-2">
+            <h3 class="text-lg font-bold text-navy mb-2">
               Honest Rates &amp; No Hidden Cost
-            </h4>
+            </h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
               Transparent per-square-foot quotes with complete material guidance
               so you always get the best value for your budget.
@@ -953,9 +957,9 @@
             >
               <i class="fas fa-calendar-check"></i>
             </div>
-            <h4 class="text-lg font-bold text-navy mb-2">
+            <h3 class="text-lg font-bold text-navy mb-2">
               Strict Project Deadlines
-            </h4>
+            </h3>
             <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
               Experienced crews of skilled masons deploy quickly to handover
               your dream home on schedule without delays.
@@ -1119,7 +1123,8 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <div class="hero-badge mb-3">
-            <span class="text-gold font-bold text-xs uppercase tracking-widest"
+            <span
+              class="text-gold-text font-bold text-xs uppercase tracking-widest"
               >Verified Reviews</span
             >
           </div>
@@ -1160,9 +1165,9 @@
                 AR
               </div>
               <div>
-                <h4 class="font-bold text-navy text-sm sm:text-base">
+                <p class="font-bold text-navy text-sm sm:text-base">
                   Ahmed Raza
-                </h4>
+                </p>
                 <p class="text-xs text-gray-500">
                   <i class="fas fa-check-circle text-emerald-500 mr-1"></i>
                   Homeowner, DHA Islamabad
@@ -1199,9 +1204,9 @@
                 SM
               </div>
               <div>
-                <h4 class="font-bold text-navy text-sm sm:text-base">
+                <p class="font-bold text-navy text-sm sm:text-base">
                   Sana Malik
-                </h4>
+                </p>
                 <p class="text-xs text-gray-500">
                   <i class="fas fa-check-circle text-emerald-500 mr-1"></i>
                   Business Owner, Bahria Phase 7
@@ -1238,9 +1243,9 @@
                 BK
               </div>
               <div>
-                <h4 class="font-bold text-navy text-sm sm:text-base">
+                <p class="font-bold text-navy text-sm sm:text-base">
                   Bilal Khan
-                </h4>
+                </p>
                 <p class="text-xs text-gray-500">
                   <i class="fas fa-check-circle text-emerald-500 mr-1"></i>
                   Civil Contractor, Islamabad F-10
@@ -1268,7 +1273,7 @@
           Ready to Transform Your Villa or Commercial Space?
         </h2>
         <p
-          class="text-navy/90 mb-9 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
+          class="text-navy mb-9 text-sm sm:text-base max-w-xl mx-auto leading-relaxed"
         >
           Book a free site consultation and estimate today. We bring sample
           cuts, evaluate leveling, and offer competitive direct-artisan rates.
@@ -1284,7 +1289,7 @@
           <a
             href="https://wa.me/923403443297?text=Hello%20ANMOL%20Marble%20%26%20Tile%20Works,%20I%20am%20interested%20in%20a%20project%20estimate."
             target="_blank"
-            class="bg-emerald-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-700 transition shadow-xl flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
+            class="bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold hover:bg-emerald-800 transition shadow-xl flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
           >
             <i class="fab fa-whatsapp text-lg"></i>
             <span>WhatsApp Estimate</span>
@@ -1333,11 +1338,11 @@
 
           <!-- Col 2: Quick Links -->
           <div>
-            <h4
+            <h3
               class="text-white font-bold mb-4 text-sm uppercase tracking-wider border-b border-gold/30 pb-2 flex items-center gap-2"
             >
               <i class="fas fa-link text-gold text-xs"></i> Quick Links
-            </h4>
+            </h3>
             <ul class="space-y-2.5 text-xs sm:text-sm">
               <li>
                 <a
@@ -1398,12 +1403,12 @@
 
           <!-- Col 3: Areas Covered -->
           <div>
-            <h4
+            <h3
               class="text-white font-bold mb-4 text-sm uppercase tracking-wider border-b border-gold/30 pb-2 flex items-center gap-2"
             >
               <i class="fas fa-map-marked-alt text-gold text-xs"></i> Service
               Areas
-            </h4>
+            </h3>
             <ul class="space-y-2 text-xs text-gray-400">
               <li class="flex items-center gap-2">
                 <i class="fas fa-check text-gold text-[10px]"></i> DHA Islamabad
@@ -1434,12 +1439,12 @@
 
           <!-- Col 4: Get In Touch -->
           <div>
-            <h4
+            <h3
               class="text-white font-bold mb-4 text-sm uppercase tracking-wider border-b border-gold/30 pb-2 flex items-center gap-2"
             >
               <i class="fas fa-envelope-open-text text-gold text-xs"></i> Get In
               Touch
-            </h4>
+            </h3>
             <ul class="space-y-3 text-xs sm:text-sm">
               <li class="flex items-center gap-3">
                 <i class="fas fa-user text-gold w-4"></i>
@@ -1477,7 +1482,7 @@
         </div>
 
         <div
-          class="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500"
+          class="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400"
         >
           <p>&copy; 2026 ANMOL Marble &amp; Tile Works. All Rights Reserved.</p>
           <p class="mt-2 sm:mt-0">
